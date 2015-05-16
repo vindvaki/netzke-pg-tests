@@ -5,10 +5,15 @@ A proof of concept netzke component with a testcase that breaks pagination under
 The basic test case is:
 - An app with one model, `Author(id, name, created_at, updated_at)`
 - One `Netzke::Basepack::Grid`, `Authors`, of `Author` records, sorted by the `name` column by default
-- A test that generates a bunch of `Author` instances, all with the same `name` (so postgres can sort however it wants), loads the `Authors` grid and compares the entries in the grid with the entries generated. On my machine, this usually results in a few missed entries, e.g.
+- A test that generates a bunch of `Author` instances, all with the same `name` (so postgres can sort however it wants), loads the `Authors` grid and compares the entries in the grid with the entries generated. On my machine, this usually results in a few missed entries.
 
+## Example
+Running
 ```
 $ bundle exec rspec
+```
+can give results along the lines of
+```
 F
 
 Failures:
@@ -42,14 +47,18 @@ Failed examples:
 
 rspec ./spec/features/authors_spec.rb:10 # Authors should not show the same record on two different pages
 ```
+demonstrating the issue, but can
 
-The files of interest are
+## Files of interest
 - `spec/features/author_spec.rb`, and
 - `spec/features/javascripts/authors.js.coffee`
 
 (the rest is just boilerplate for Rails, included for the sake of reproducibility)
 
+## Other notes
 
-Like for any [netzke](https://github.com/netzke) project, you need:
+You'll need to set up PostgreSQL in `config/database.yml`.
+
+Like for any [netzke](https://github.com/netzke) project:
 - public/extjs should link to ExtJS (I used 5.1.1 GPL)
 - public/images/icons should link to the famfam silk icons
