@@ -1,0 +1,20 @@
+# this is strictly for development
+
+default: &default
+  adapter: postgresql
+  encoding: utf-8
+  pool: 5
+  timeout: 5000
+  username: hordur
+
+development:
+  <<: *default
+  database: netzke_development
+
+test:
+  <<: *default
+  database: netzke_test
+
+production:
+  <<: *default
+  database: netzke_development
